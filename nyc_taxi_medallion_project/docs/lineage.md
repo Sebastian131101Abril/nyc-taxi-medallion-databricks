@@ -1,7 +1,5 @@
 # Linaje de datos
 
-Puedes usar este diagrama Mermaid como evidencia de linaje si no logras tomar screenshot desde Unity Catalog.
-
 ```mermaid
 flowchart LR
     A["Fuente TLC<br/>yellow_tripdata_2023-01.parquet"] --> B["raw.yellow_taxi_trips"]
@@ -20,12 +18,3 @@ flowchart LR
     F --> M["refined.execution_report"]
     I --> M
 ```
-
-## Cómo tomar screenshot en Unity Catalog
-
-1. Abre Databricks.
-2. Ve a **Catalog**.
-3. Busca el catálogo `nyc_taxi_sebastian`.
-4. Abre una tabla Refined, por ejemplo `refined.kpi_temporal_demand`.
-5. Entra a la pestaña **Lineage**.
-6. Toma screenshot donde se vea el flujo desde Raw/Trusted hasta Refined.
