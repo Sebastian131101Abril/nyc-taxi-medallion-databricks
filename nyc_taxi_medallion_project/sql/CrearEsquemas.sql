@@ -1,15 +1,23 @@
--- 00_create_catalog_schemas.sql
 
+-- Creación de estructura Unity Catalog para NYC Taxi Pipeline
+-- Catálogo principal del proyecto
 CREATE CATALOG IF NOT EXISTS nyc_taxi_sebastian
 COMMENT 'Catálogo para pipeline ETL Medallion de NYC Yellow Taxi';
 
 USE CATALOG nyc_taxi_sebastian;
 
+-- Schema Raw / Bronze
 CREATE SCHEMA IF NOT EXISTS raw
-COMMENT 'Capa Raw: datos ingeridos casi sin transformación';
+COMMENT 'Capa Raw/Bronze: datos fuente ingeridos con transformación mínima';
 
+-- Schema Trusted / Silver
 CREATE SCHEMA IF NOT EXISTS trusted
-COMMENT 'Capa Trusted: datos limpiados, validados y enriquecidos';
+COMMENT 'Capa Trusted/Silver: datos limpios, validados y enriquecidos';
 
+-- Schema Refined / Gold
 CREATE SCHEMA IF NOT EXISTS refined
-COMMENT 'Capa Refined: KPIs, reportes y productos analíticos';
+COMMENT 'Capa Refined/Gold: KPIs, reportes y productos analíticos';
+
+-- Volume para archivos fuente y reportes JSON
+CREATE VOLUME IF NOT EXISTS raw.nyc_taxi_files
+COMMENT 'Volume para almacenar archivos fuente del pipeline y reportes de ejecución';
