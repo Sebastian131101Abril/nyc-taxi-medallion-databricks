@@ -14,7 +14,7 @@ División administrativa de Nueva York. En el dataset de zonas se usa para agrup
 
 ## 4. Zona de pickup
 
-Zona donde inicia el viaje. Se obtiene al unir `PULocationID` de los viajes con `LocationID` del Taxi Zone Lookup.
+Zona donde inicia el viaje. Se obtiene al unir PULocationID de los viajes con LocationID del Taxi Zone Lookup.
 
 ## 5. Ingreso promedio por milla
 
