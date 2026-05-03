@@ -123,9 +123,9 @@ Esta agrupación permite observar de forma sencilla cómo cambia la demanda en l
 
 El ranking de zonas se construyó a partir de indicadores relacionados con la eficiencia económica de los viajes. Para esto se calcularon métricas como el ingreso promedio por milla y la velocidad promedio del viaje.
 
-```text
-ingreso promedio por milla = promedio(total_amount / trip_distance)
-velocidad promedio = promedio(trip_distance / duración_en_horas)
+- ingreso promedio por milla = promedio(total_amount / trip_distance)
+- velocidad promedio = promedio(trip_distance / duración_en_horas)
+- 
 ## Observabilidad
 
 El notebook genera:
@@ -136,7 +136,7 @@ El notebook genera:
 
 ```text
 dbfs:/FileStore/nyc_taxi_etl/reports/
-```
+
 
 El reporte contiene:
 
