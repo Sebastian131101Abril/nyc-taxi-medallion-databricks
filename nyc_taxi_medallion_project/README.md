@@ -104,7 +104,7 @@ Para evitar que registros poco realistas afectaran los resultados, se definieron
 - Distancia recorrida mayor que 0 y menor o igual a 100 millas.
 - Valor total cobrado entre 0 y 1000 USD.
 
-Con estos criterios se buscó mantener viajes que pudieran ser reales, incluso si eran largos, y descartar casos evidentemente inconsistentes, como duraciones negativas, distancias demasiado altas o valores cobrados que no corresponden a un viaje urbano normal.
+Con estos criterios se buscó mantener viajes que pudieran ser reales y descartar casos evidentemente inconsistentes, como duraciones negativas, distancias demasiado altas o valores cobrados que no corresponden a un viaje normal.
 
 ### Definición de franjas horarias
 
@@ -117,7 +117,7 @@ Para analizar el comportamiento de la demanda durante el día, se dividieron las
 - 16-19
 - 20-23
 
-Esta agrupación permite observar de forma sencilla cómo cambia la demanda en la madrugada, la mañana, el mediodía, la tarde y la noche, sin generar un nivel de detalle demasiado fragmentado.
+Esta agrupación permite observar de forma sencilla cómo cambia la demanda en la madrugada, la mañana, el mediodía, la tarde y la noche.
 
 ### Cálculo del ranking económico
 
