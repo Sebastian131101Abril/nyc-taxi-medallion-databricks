@@ -66,49 +66,49 @@ En Databricks:
 
 Validación de datos.
 
----
-
 ## Decisiones técnicas
 
-### Por qué enero 2023
+### Selección del mes de análisis
 
-Se usa un solo mes para cumplir el alcance de la prueba y evitar costos altos en ambiente gratuito.
+Para la prueba se trabajó únicamente con enero de 2023. Esta decisión permite mantener el alcance de la prueba, reducir tiempos de procesamiento y evitar consumo innecesario de recursos en el entorno de Azure Databricks.
 
-### Por qué Delta Lake
+### Uso de Delta Lake
 
-Delta permite tablas transaccionales, relectura confiable, manejo de schema y gobierno con Unity Catalog.
+Las tablas se almacenaron en formato Delta porque permite trabajar con datos de forma más confiable dentro de Databricks. Además, facilita la escritura y lectura de tablas, el manejo de cambios en el esquema y la integración con Unity Catalog para temas de gobierno y organización de los datos.
 
-### Por qué particionar por fecha de pickup en Trusted
+### Particionamiento en la capa Trusted
 
-La tabla Trusted se particiona por `pickup_date` porque los análisis temporales y filtros por fecha suelen ser frecuentes.
+La tabla principal de la capa Trusted se particionó por pickup_date, ya que la fecha de recogida es un campo clave para los análisis de demanda. Esta partición ayuda a organizar mejor la información y puede mejorar las consultas cuando se filtra por periodos de tiempo.
 
-### Reglas de limpieza aplicadas
+### Criterios de limpieza y validación
 
-Se descartan registros que incumplan estas reglas:
+En la capa Trusted se aplicaron reglas básicas para conservar únicamente viajes con condiciones razonables. Se excluyeron registros donde la fecha de inicio fuera posterior o igual a la fecha de finalización, viajes con distancia o tarifa no positiva, campos críticos nulos y valores extremos que podían afectar los indicadores.
 
-1. `pickup_datetime < dropoff_datetime`
-2. `trip_distance > 0`
-3. `fare_amount > 0`
-4. Campos críticos no nulos.
-5. Duración entre 1 y 180 minutos.
-6. Distancia menor o igual a 100 millas.
-7. Total cobrado entre 0 y 1000 USD.
+Las reglas aplicadas fueron:
 
-Estas reglas buscan eliminar viajes imposibles, datos incompletos y outliers extremos sin hacer una limpieza excesiva.
+1. pickup_datetime < dropoff_datetime
+2. trip_distance > 0
+3. fare_amount > 0
+4. Campos críticos no nulos
+5. Duración del viaje entre 1 y 180 minutos
+6. Distancia menor o igual a 100 millas
+7. Valor total del viaje entre 0 y 1000 USD
 
-### Outliers
+Estas validaciones buscan retirar registros claramente inconsistentes, como viajes sin duración real, distancias imposibles, tarifas negativas o montos demasiado altos, sin modificar de manera excesiva el comportamiento natural del dataset.
 
-Criterio aplicado:
+### Manejo de valores atípicos
 
-- Duración: 1 a 180 minutos.
-- Distancia: 0 a 100 millas.
-- Total: 0 a 1000 USD.
+Para evitar que registros poco realistas afectaran los resultados, se definieron límites razonables sobre algunas variables del viaje. En este caso, se conservaron únicamente los registros que cumplieran con los siguientes rangos:
 
-La razón es conservar viajes reales largos, pero eliminar errores evidentes como duraciones negativas, distancias exageradas o importes imposibles para un viaje urbano.
+- Duración del viaje entre 1 y 180 minutos.
+- Distancia recorrida mayor que 0 y menor o igual a 100 millas.
+- Valor total cobrado entre 0 y 1000 USD.
 
-### Franja horaria
+Con estos criterios se buscó mantener viajes que pudieran ser reales, incluso si eran largos, y descartar casos evidentemente inconsistentes, como duraciones negativas, distancias demasiado altas o valores cobrados que no corresponden a un viaje urbano normal.
 
-Se usan 6 franjas de 4 horas:
+### Definición de franjas horarias
+
+Para analizar el comportamiento de la demanda durante el día, se dividieron las 24 horas en seis bloques de cuatro horas:
 
 - 00-03
 - 04-07
@@ -117,21 +117,15 @@ Se usan 6 franjas de 4 horas:
 - 16-19
 - 20-23
 
-Esto permite ver patrones de madrugada, mañana, mediodía, tarde y noche.
+Esta agrupación permite observar de forma sencilla cómo cambia la demanda en la madrugada, la mañana, el mediodía, la tarde y la noche, sin generar un nivel de detalle demasiado fragmentado.
 
-### Ranking económico
+### Cálculo del ranking económico
 
-El ranking de zonas se calcula con:
+El ranking de zonas se construyó a partir de indicadores relacionados con la eficiencia económica de los viajes. Para esto se calcularon métricas como el ingreso promedio por milla y la velocidad promedio del viaje.
 
 ```text
 ingreso promedio por milla = promedio(total_amount / trip_distance)
-velocidad promedio = promedio(trip_distance / duración_horas)
-```
-
-Se aplica un mínimo de 100 viajes por zona para evitar que zonas con muy pocos registros distorsionen el ranking.
-
----
-
+velocidad promedio = promedio(trip_distance / duración_en_horas)
 ## Observabilidad
 
 El notebook genera:
