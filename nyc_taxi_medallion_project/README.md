@@ -1,5 +1,15 @@
 # NYC Yellow Taxi
 
+## Resumen de lo realizado
+
+En este proyecto se construyó un pipeline ETL de extremo a extremo en Azure Databricks utilizando PySpark, Delta Lake y Unity Catalog. El flujo procesa el dataset público NYC Yellow Taxi Trips de enero de 2023 y lo complementa con el archivo Taxi Zone Lookup para enriquecer los viajes con información de borough y zona de recogida.
+
+La solución implementa una arquitectura Medallion compuesta por tres capas: Raw, Trusted y Refined. En la capa Raw se ingieren los datos fuente con transformación mínima; en Trusted se aplican reglas de calidad, limpieza, control de valores atípicos y enriquecimiento; y en Refined se generan tablas analíticas con KPIs de demanda temporal, eficiencia económica por zona, reporte de calidad de datos y reporte final de ejecución.
+
+También se configuró gobierno de datos mediante Unity Catalog, creando el catálogo `nyc_taxi_sebastian` con los schemas `raw`, `trusted` y `refined`. Adicionalmente, se utilizó un Unity Catalog Volume para almacenar archivos fuente y reportes JSON, evitando el uso de DBFS/FileStore.
+
+Finalmente, se documentaron los Critical Data Elements en `docs/cdes.md`, se construyó un glosario de negocio en `docs/glosario.md`, se incluyó documentación de linaje en `docs/lineage.md` y se agregaron evidencias de ejecución mediante screenshots de catálogo, schemas, tablas, KPIs, calidad de datos, reporte final y linaje.
+
 ## Objetivo
 
 Construir un pipeline ETL en Azure Databricks usando arquitectura Medallion:
