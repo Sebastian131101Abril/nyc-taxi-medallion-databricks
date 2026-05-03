@@ -132,11 +132,7 @@ El notebook genera:
 
 1. Logs con niveles `INFO`, `WARNING` y `ERROR`.
 2. Tabla `refined.execution_report`.
-3. Archivo JSON en DBFS:
-
-```text
-dbfs:/FileStore/nyc_taxi_etl/reports/
-
+3. Archivo JSON
 
 El reporte contiene:
 
@@ -158,22 +154,6 @@ Por defecto:
 - Espera incremental entre intentos.
 - Log de error por etapa.
 - Si falla definitivamente, el notebook termina con excepción controlada.
-
----
-
-## Validaciones finales sugeridas
-
-Después de ejecutar, valida:
-
-```sql
-SELECT COUNT(*) FROM nyc_taxi_sebastian.raw.yellow_taxi_trips;
-SELECT COUNT(*) FROM nyc_taxi_sebastian.trusted.yellow_taxi_trips_enriched;
-SELECT * FROM nyc_taxi_sebastian.refined.data_quality_report;
-SELECT * FROM nyc_taxi_sebastian.refined.kpi_temporal_peaks;
-SELECT * FROM nyc_taxi_sebastian.refined.kpi_top10_profitable_zones;
-SELECT * FROM nyc_taxi_sebastian.refined.execution_report;
-```
-
 ---
 
 ## Limitaciones conocidas
