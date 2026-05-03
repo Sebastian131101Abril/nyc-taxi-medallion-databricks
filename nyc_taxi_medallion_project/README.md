@@ -9,26 +9,6 @@ También se configuró la estructura de gobierno en Unity Catalog mediante el ca
 
 Como parte de la documentación, se incluyeron los elementos críticos de datos en docs/cdes.md, un glosario de negocio en docs/glosario.md y la descripción del linaje en docs/lineage.md. Además, se agregaron capturas de pantalla como evidencia de la creación del catálogo, las capas, las tablas generadas, los KPIs, el reporte de calidad, el reporte final y la vista de linaje.
 
-```
-
----
-
-## Tablas creadas en Unity Catalog
-
-Catálogo sugerido:
-
-```sql
-nyc_taxi_sebastian
-```
-
-Schemas:
-
-```sql
-raw
-trusted
-refined
-```
-
 Tablas:
 
 ### Raw
