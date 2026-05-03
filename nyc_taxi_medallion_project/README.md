@@ -128,9 +128,8 @@ El ranking de zonas se construyó a partir de indicadores relacionados con la ef
 
 ## Observabilidad
 
-El notebook incluye mecanismos básicos para hacer seguimiento a la ejecución del pipeline. Durante el proceso se generan mensajes de log con niveles `INFO`, `WARNING` y `ERROR`, lo que permite identificar el inicio y fin de cada etapa, advertencias del flujo y posibles errores durante la ejecución.
+El notebook incluye Logs con niveles INFO, WARNING y ERROR, lo que permite identificar el inicio y fin de cada etapa, advertencias del flujo y posibles errores durante la ejecución.
 
-Además, al finalizar el proceso se crea la tabla:
+## Limitaciones conocidas
 
-```text
-refined.execution_report
+- Solo se procesa enero 2023. - El análisis se centra en zona de pickup. - Las reglas de outliers son razonables para una prueba técnica, pero en producción deberían acordarse con negocio. - El reporte de calidad por regla puede tener solapamientos: un mismo registro puede fallar más de una regla. - En algunos entornos gratuitos puede que no tengas permisos para crear catálogos nuevos. Si pasa, usa el catálogo workspace y crea solo los schemas.
