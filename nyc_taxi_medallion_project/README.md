@@ -1,4 +1,4 @@
-# NYC Yellow Taxi ETL Medallion - Azure Databricks
+# NYC Yellow Taxi
 
 ## Objetivo
 
