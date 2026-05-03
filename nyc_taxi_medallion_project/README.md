@@ -132,4 +132,7 @@ El notebook incluye Logs con niveles INFO, WARNING y ERROR, lo que permite ident
 
 ## Limitaciones conocidas
 
-- Solo se procesa enero 2023. - El análisis se centra en zona de pickup. - Las reglas de outliers son razonables para una prueba técnica, pero en producción deberían acordarse con negocio. - El reporte de calidad por regla puede tener solapamientos: un mismo registro puede fallar más de una regla. - En algunos entornos gratuitos puede que no tengas permisos para crear catálogos nuevos. Si pasa, usa el catálogo workspace y crea solo los schemas.
+- Solo se procesa enero 2023.
+- El análisis se centra en zona de pickup, sin profundizar en la zona de destino u otros posibles cruces geográficos.
+- En un entorno productivo las reglas de negocio se deben acordar con el usuario de negocio.
+- En esta implementación no se utilizó dbfs:/FileStore porque el workspace de Azure Databricks tenía deshabilitado el acceso a Public DBFS Root. Por esta razón, los archivos fuente y reportes generados se almacenaron en un Unity Catalog Volume, lo cual permite mantenerlos dentro de una ubicación gobernada por Unity Catalog y alineada con una estructura más segura y administrada para el proyecto.
