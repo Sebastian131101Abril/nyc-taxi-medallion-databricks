@@ -40,20 +40,19 @@ Tablas:
 Puedes usar Azure Databricks o Databricks Free/Community Edition.
 
 ### 2. Crear cluster
+Crea un cluster con Runtime que soporte Delta y Unity Catalog.
 
-Usa un cluster con Runtime que soporte Delta y Unity Catalog.
+El que se uso para el trabajo (Recomendado):
 
-Recomendado:
-
-- Databricks Runtime 14.x o superior.
-- Cluster single node si estás en versión gratuita.
+- Databricks Runtime 14.x.
+- Cluster single node.
 
 ### 3. Importar el notebook
 
 Importa el archivo:
 
 ```text
-notebooks/01_nyc_taxi_medallion_pipeline.py
+notebooks/NB_Carga_nyc_taxi.ipynb
 ```
 
 En Databricks:
@@ -61,36 +60,11 @@ En Databricks:
 1. Workspace.
 2. Import.
 3. File.
-4. Selecciona el notebook `.py`.
+4. Selecciona el notebook `.ipynb`.
 
-### 4. Subir el CSV de zonas
+### 4. Ejecutar notebook
 
-Sube el archivo:
-
-```text
-data/taxi_zone_lookup.csv
-```
-
-A esta ruta de DBFS:
-
-```text
-dbfs:/FileStore/nyc_taxi_etl/taxi_zone_lookup.csv
-```
-
-O cambia el parámetro `taxi_zone_csv_path` en el notebook.
-
-### 5. Ejecutar notebook
-
-Antes de ejecutar, revisa los widgets:
-
-```python
-catalog_name = nyc_taxi_sebastian
-taxi_month = 2023-01
-yellow_taxi_url = https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2023-01.parquet
-taxi_zone_csv_path = dbfs:/FileStore/nyc_taxi_etl/taxi_zone_lookup.csv
-```
-
-Luego ejecuta todo el notebook.
+Validación de datos.
 
 ---
 
