@@ -125,41 +125,12 @@ El ranking de zonas se construyó a partir de indicadores relacionados con la ef
 
 - ingreso promedio por milla = promedio(total_amount / trip_distance)
 - velocidad promedio = promedio(trip_distance / duración_en_horas)
-- 
+
 ## Observabilidad
 
-El notebook genera:
+El notebook incluye mecanismos básicos para hacer seguimiento a la ejecución del pipeline. Durante el proceso se generan mensajes de log con niveles `INFO`, `WARNING` y `ERROR`, lo que permite identificar el inicio y fin de cada etapa, advertencias del flujo y posibles errores durante la ejecución.
 
-1. Logs con niveles `INFO`, `WARNING` y `ERROR`.
-2. Tabla `refined.execution_report`.
-3. Archivo JSON
+Además, al finalizar el proceso se crea la tabla:
 
-El reporte contiene:
-
-- Total procesado.
-- Registros descartados.
-- Tiempo por etapa.
-- Tablas generadas.
-- KPIs principales.
-
----
-
-## Manejo de errores y reintentos
-
-Cada etapa del pipeline se ejecuta con función `run_with_retry`.
-
-Por defecto:
-
-- 2 reintentos.
-- Espera incremental entre intentos.
-- Log de error por etapa.
-- Si falla definitivamente, el notebook termina con excepción controlada.
----
-
-## Limitaciones conocidas
-
-- Solo se procesa enero 2023.
-- El análisis se centra en zona de pickup.
-- Las reglas de outliers son razonables para una prueba técnica, pero en producción deberían acordarse con negocio.
-- El reporte de calidad por regla puede tener solapamientos: un mismo registro puede fallar más de una regla.
-- En algunos entornos gratuitos puede que no tengas permisos para crear catálogos nuevos. Si pasa, usa el catálogo `workspace` y crea solo los schemas.
+```text
+refined.execution_report
